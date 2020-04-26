@@ -4,9 +4,7 @@
 #include "subscriber_handler_creator.h"
 
 command_handler::command_handler(
-        std::unique_ptr<commands_factory> factory,
         std::unique_ptr<session_manager> sess_manager) :
-    _commands_factory(std::move(factory)),
     _sessions_manager(std::move(sess_manager)),
     _event_loop_thread(&command_handler::event_loop, this)
 {
@@ -18,9 +16,7 @@ command_handler::command_handler(
 
 command_handler& command_handler::get_instance()
 {
-    static command_handler cmd_handler(
-                std::make_unique<commands_factory>(),
-                std::make_unique<session_manager>());
+    static command_handler cmd_handler(std::make_unique<session_manager>());
 
     return cmd_handler;
 }
@@ -35,16 +31,19 @@ void command_handler::add_request(const client_request request)
 client_descriptor command_handler::add_client(size_t bulk_length)
 {
     client_descriptor descriptor = _sessions_manager->create_session();
-    _clients_requests.push(std::make_pair(descriptor,
-            commands_factory::create_control_command(command_type::start, bulk_length)));
+
+    auto start_command_ptr = commands_factory::create_control_command(command_type::start, bulk_length);
+    _clients_requests.push(std::make_pair(descriptor, std::move(start_command_ptr)));
+
     return descriptor;
 }
 
 void command_handler::remove_client(client_descriptor descriptor)
 {
     _sessions_manager->delete_session(descriptor);
-    _clients_requests.push(std::make_pair(descriptor,
-            commands_factory::create_control_command(command_type::finish)));
+
+    auto finish_command_ptr = commands_factory::create_control_command(command_type::finish);
+    _clients_requests.push(std::make_pair(descriptor, std::move(finish_command_ptr)));
 }
 
 

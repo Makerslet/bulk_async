@@ -3,6 +3,7 @@
 
 #include "client_descriptor.h"
 
+#include <mutex>
 #include <set>
 
 class session_manager
@@ -17,6 +18,7 @@ public:
     void delete_session(client_descriptor descriptor);
 
 private:
+    std::mutex _guard;
     std::set<client_descriptor> _sessions;
 };
 

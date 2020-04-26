@@ -26,8 +26,6 @@ class command_handler : public base_publisher
      */
     using commands_description = std::pair<uint64_t, scope_commands>;
 
-    using client_request = std::pair<client_descriptor, std::shared_ptr<base_command>>;
-
     struct client_context
     {
         client_context(size_t bulk_length) :
@@ -44,6 +42,8 @@ class command_handler : public base_publisher
     };
 
     using client_context_sptr = std::shared_ptr<client_context>;
+
+    using client_request = std::pair<client_descriptor, std::shared_ptr<base_command>>;
 
 public:
     static command_handler& get_instance();
@@ -66,9 +66,7 @@ private:
      * @brief Конструктор обработчика команд
      * @param bulk_length - размер пакета команд
      */
-    command_handler(
-            std::unique_ptr<commands_factory> factory,
-            std::unique_ptr<session_manager> sess_manager);
+    command_handler(std::unique_ptr<session_manager> sess_manager);
 
     void event_loop();
     /**
@@ -108,7 +106,6 @@ private:
     void handle_text_command(client_descriptor descriptor, uint64_t timestamp, const std::string& str);
 
 private:
-    std::unique_ptr<commands_factory> _commands_factory;
     std::unique_ptr<session_manager> _sessions_manager;
 
     std::unordered_map<client_descriptor, client_context_sptr> _contexts;
