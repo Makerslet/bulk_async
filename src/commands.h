@@ -67,4 +67,24 @@ struct finish_command : base_command {
         base_command(command_type::finish, ts) {}
 };
 
+
+/**
+ * @brief Команда начала работы
+ */
+struct start_command : base_command {
+    /**
+     * @brief Конструктор
+     * @param ts - временная метка
+     */
+    start_command(uint64_t ts, size_t bulk_length) :
+        base_command(command_type::start, ts), _bulk_length(bulk_length) {}
+
+    size_t bulk_length() const {
+        return _bulk_length;
+    }
+
+private:
+    size_t _bulk_length;
+};
+
 #endif // COMMANDS_H

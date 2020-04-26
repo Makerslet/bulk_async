@@ -26,7 +26,7 @@ class command_handler : public base_publisher
      */
     using commands_description = std::pair<uint64_t, scope_commands>;
 
-    using client_request = std::pair<client_descriptor, std::string>;
+    using client_request = std::pair<client_descriptor, std::shared_ptr<base_command>>;
 
     struct client_context
     {
@@ -46,19 +46,13 @@ class command_handler : public base_publisher
     using client_context_sptr = std::shared_ptr<client_context>;
 
 public:
-    command_handler& get_instance();
+    static command_handler& get_instance();
 
     void add_request(const client_request request);
 
     client_descriptor add_client(size_t bulk_length);
 
     void remove_client(client_descriptor descriptor);
-
-    /**
-     * @brief Метод запуска команды в обработку
-     * @param command - команда
-     */
-    void add_command(client_descriptor descriptor, std::unique_ptr<base_command>&& command);
 
     /**
      * @brief Метод подписки на обновлениия
@@ -83,24 +77,35 @@ private:
      * @param string - информационная строка
      */
     void notify(uint64_t timestamp, const scope_commands &cmds);
+
+    /**
+     * @brief Метод запуска команды в обработку
+     * @param command - команда
+     */
+    void handle_command(client_descriptor descriptor, std::shared_ptr<base_command> command);
+
     /**
      * @brief Метод обработки команды открытия scope
      */
-    void handle_open_scope(client_context_sptr);
+    void handle_open_scope(client_descriptor descriptor);
     /**
      * @brief Метод обработки команды закрытия scope
      */
-    void handle_close_scope(client_context_sptr);
+    void handle_close_scope(client_descriptor descriptor);
     /**
      * @brief Метод обработки команды завершения ввода
      */
-    void handle_finish(client_context_sptr);
+    void handle_finish(client_descriptor descriptor);
+    /**
+     * @brief Метод обработки команды начала ввода
+     */
+    void handle_start(client_descriptor descriptor, size_t bulk_length);
     /**
      * @brief Метод обработки текстовой команды
      * @param timestamp - временная метка
      * @param str - текст команды
      */
-    void handle_text_command(client_context_sptr context, uint64_t timestamp, const std::string& str);
+    void handle_text_command(client_descriptor descriptor, uint64_t timestamp, const std::string& str);
 
 private:
     std::unique_ptr<commands_factory> _commands_factory;

@@ -3,7 +3,19 @@
 
 #include <chrono>
 
-std::unique_ptr<base_command> commands_factory::create_command(const std::string& str)
+std::unique_ptr<base_command> commands_factory::create_control_command(command_type type, size_t arg)
+{
+    uint64_t timestamp = create_time_stamp();
+
+    if(type == command_type::start)
+        return std::make_unique<start_command>(timestamp, arg);
+    else if(type == command_type::finish)
+        return std::make_unique<finish_command>(timestamp);
+    else
+        return nullptr;
+}
+
+std::unique_ptr<base_command> commands_factory::create_user_command(const std::string& str)
 {
     uint64_t timestamp = create_time_stamp();
 
@@ -11,8 +23,6 @@ std::unique_ptr<base_command> commands_factory::create_command(const std::string
         return std::make_unique<open_scope_command>(timestamp);
     else if(str == "}")
         return  std::make_unique<close_scope_command>(timestamp);
-    else if(str == "exit")
-        return  std::make_unique<finish_command>(timestamp);
     else
         return std::make_unique<text_command>(timestamp, str);
 }

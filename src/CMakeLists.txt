@@ -15,7 +15,8 @@ add_library(${TARGET} SHARED
     command_handler.h command_handler.cpp
     subscriber.h subscriber.cpp
     subscriber_handler_creator.h subscriber_handler_creator.cpp
-    session_manager.h session_manager.cpp)
+    session_manager.h session_manager.cpp
+    requests_parser.h requests_parser.cpp)
 
 set_target_properties(${TARGET} PROPERTIES
     CXX_STANDARD 17
