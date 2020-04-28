@@ -1,0 +1,5 @@
+<map id="base_command" name="base_command">
+<area shape="rect" id="node2" href="$structclose__scope__command.html" title="Команда закрытия scope. " alt="" coords="5,80,179,107"/>
+<area shape="rect" id="node3" href="$structopen__scope__command.html" title="Команда открытия scope. " alt="" coords="203,80,373,107"/>
+<area shape="rect" id="node4" href="$structtext__command.html" title="Текстовая команда " alt="" coords="397,80,517,107"/>
+</map>

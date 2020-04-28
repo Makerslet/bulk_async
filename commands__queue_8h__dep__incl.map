@@ -1,0 +1,7 @@
+<map id="src/commands_queue.h" name="src/commands_queue.h">
+<area shape="rect" id="node2" href="$commands__dispatcher_8h.html" title="src/commands_dispatcher.h" alt="" coords="55,80,258,107"/>
+<area shape="rect" id="node5" href="$subscriber_8h.html" title="src/subscriber.h" alt="" coords="282,80,405,107"/>
+<area shape="rect" id="node3" href="$async_8cpp.html" title="src/async.cpp" alt="" coords="5,155,116,181"/>
+<area shape="rect" id="node4" href="$commands__dispatcher_8cpp.html" title="src/commands_dispatcher.cpp" alt="" coords="141,155,359,181"/>
+<area shape="rect" id="node6" href="$subscriber_8cpp.html" title="src/subscriber.cpp" alt="" coords="383,155,522,181"/>
+</map>

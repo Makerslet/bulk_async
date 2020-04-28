@@ -1,0 +1,5 @@
+<map id="base_control_command" name="base_control_command">
+<area shape="rect" id="node2" href="$structstart__control__command.html" title="Команда начала работы с пользователем " alt="" coords="5,80,181,107"/>
+<area shape="rect" id="node3" href="$structstop__control__command.html" title="Команда окончания работы с пользователем " alt="" coords="206,80,381,107"/>
+<area shape="rect" id="node4" href="$structtext__control__command.html" title="Текстовая обработки поступивших текстовых данных " alt="" coords="405,80,577,107"/>
+</map>

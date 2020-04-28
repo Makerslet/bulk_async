@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structbase__command.html" title="Базовый тип команд " alt="" coords="5,56,131,83"/>
+<area shape="rect" id="node2" href="$structclose__scope__command.html" title="Команда закрытия scope. " alt="" coords="179,5,352,32"/>
+<area shape="rect" id="node3" href="$structopen__scope__command.html" title="Команда открытия scope. " alt="" coords="180,56,351,83"/>
+<area shape="rect" id="node4" href="$structtext__command.html" title="Текстовая команда " alt="" coords="205,107,325,133"/>
+</map>

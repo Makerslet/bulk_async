@@ -1,0 +1,9 @@
+<map id="src/base/base_publisher.h" name="src/base/base_publisher.h">
+<area shape="rect" id="node2" href="$command__handler_8h.html" title="src/command_handler.h" alt="" coords="185,80,363,107"/>
+<area shape="rect" id="node3" href="$commands__dispatcher_8h.html" title="src/commands_dispatcher.h" alt="" coords="54,229,257,256"/>
+<area shape="rect" id="node6" href="$handler__context_8h.html" title="src/handler_context.h" alt="" coords="193,155,355,181"/>
+<area shape="rect" id="node8" href="$command__handler_8cpp.html" title="src/command_handler.cpp" alt="" coords="379,155,571,181"/>
+<area shape="rect" id="node4" href="$async_8cpp.html" title="src/async.cpp" alt="" coords="5,304,116,331"/>
+<area shape="rect" id="node5" href="$commands__dispatcher_8cpp.html" title="src/commands_dispatcher.cpp" alt="" coords="141,304,359,331"/>
+<area shape="rect" id="node7" href="$handler__context_8cpp.html" title="src/handler_context.cpp" alt="" coords="281,229,459,256"/>
+</map>
