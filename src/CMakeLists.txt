@@ -1,22 +1,25 @@
 cmake_minimum_required(VERSION 3.2)
-set($TARGET bulk_async)
+set($TARGET async_cli)
 
 add_library(${TARGET} SHARED
     client_descriptor.h
     async.h async.cpp
     util.h util.cpp
     base/base_command.h
+    base/base_control_command.h
     base/base_publisher.h
     base/base_subscriber.h
     base/base_workers_keeper.h
     commands.h
+    control_commands.h
     commands_queue.h
     commands_factory.h commands_factory.cpp
     command_handler.h command_handler.cpp
     subscriber.h subscriber.cpp
     subscriber_handler_creator.h subscriber_handler_creator.cpp
     session_manager.h session_manager.cpp
-    requests_parser.h requests_parser.cpp)
+    commands_dispatcher.h commands_dispatcher.cpp
+    handler_context.h handler_context.cpp)
 
 set_target_properties(${TARGET} PROPERTIES
     CXX_STANDARD 17

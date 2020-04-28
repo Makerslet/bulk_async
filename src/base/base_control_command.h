@@ -1,42 +1,42 @@
-#ifndef BASE_COMMAND_H
-#define BASE_COMMAND_H
+#ifndef BASE_CONTROL_COMMAND_H
+#define BASE_CONTROL_COMMAND_H
 
 #include <cstdint>
 
 /**
- * @brief Типы обрабатываемых команд
+ * @brief Типы обрабатываемых управляющих команд
  */
-enum class command_type
+enum class control_command_type
 {
-    open_scope,
-    close_scope,
-    text
+    start,
+    stop,
+    handle_text
 };
 
 /**
- * @brief Базовый тип команд
+ * @brief Базовый тип управляющих команд
  */
-struct base_command
+struct base_control_command
 {
     /**
      * @brief Конструктор базовой команды
      * @param type - тип команды
      * @param timestamp - временная метка получения команды
      */
-    base_command(command_type type, uint64_t timestamp) :
+    base_control_command(control_command_type type, uint64_t timestamp) :
         _type(type), _timestamp(timestamp)
     {}
 
     /**
      * @brief Деструктор базовой команды
      */
-    virtual ~base_command() = default;
+    virtual ~base_control_command() = default;
 
     /**
      * @brief Геттер для типа команды
      * @return тип команды
      */
-    command_type type() const
+    control_command_type type() const
     {
         return _type;
     };
@@ -51,8 +51,9 @@ struct base_command
     }
 
 private:
-    command_type _type;
+    control_command_type _type;
     uint64_t _timestamp;
 };
 
-#endif // BASE_COMMAND_H
+
+#endif // BASE_CONTROL_COMMAND_H

@@ -1,24 +1,8 @@
 #include "commands_factory.h"
 #include "commands.h"
 
-#include <chrono>
-
-std::unique_ptr<base_command> commands_factory::create_control_command(command_type type, size_t arg)
+std::unique_ptr<base_command> commands_factory::create_user_command(uint64_t timestamp, const std::string& str)
 {
-    uint64_t timestamp = create_time_stamp();
-
-    if(type == command_type::start)
-        return std::make_unique<start_command>(timestamp, arg);
-    else if(type == command_type::finish)
-        return std::make_unique<finish_command>(timestamp);
-    else
-        return nullptr;
-}
-
-std::unique_ptr<base_command> commands_factory::create_user_command(const std::string& str)
-{
-    uint64_t timestamp = create_time_stamp();
-
     if(str == "{")
         return std::make_unique<open_scope_command>(timestamp);
     else if(str == "}")
@@ -27,8 +11,3 @@ std::unique_ptr<base_command> commands_factory::create_user_command(const std::s
         return std::make_unique<text_command>(timestamp, str);
 }
 
-uint64_t commands_factory::create_time_stamp()
-{
-    auto now = std::chrono::system_clock::now();
-    return  std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
-}

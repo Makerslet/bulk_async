@@ -21,6 +21,7 @@ public:
 
     /**
      * @brief Положить элемен в очередь
+     * @arg value - элемент
      */
     void push(const T& value)
     {
@@ -32,6 +33,7 @@ public:
 
     /**
      * @brief Извлечь элемент из очереди
+     * @return извлекаемый элемент
      */
     T pop()
     {

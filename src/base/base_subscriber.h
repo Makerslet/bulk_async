@@ -9,7 +9,12 @@
 /**
  * @brief Описание задачи для вывода
  */
-struct subscriber_task {
+struct subscriber_task
+{
+
+    /**
+     * @brief Конструктор
+     */
     subscriber_task(uint64_t ts, const std::vector<std::string>& cmds) :
         timestamp(ts), commands(cmds){}
 
@@ -23,11 +28,13 @@ using subscriber_task_handler = std::function<void(task_sptr, const std::string&
 /**
  * @brief Интерфейс подписчика
  */
-struct base_subscriber {
+struct base_subscriber
+{
     /**
      * @brief Деструктор подписчика
      */
     virtual ~base_subscriber() = default;
+
     /**
      * @brief Интерфейс получения уведомлений
      * @timestamp - временная метка

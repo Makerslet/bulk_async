@@ -4,7 +4,7 @@
 #include "base/base_subscriber.h"
 
 /**
- * @brief Генерато обработчиков задач для worker'ов
+ * @brief Генератор обработчиков задач для worker'ов
  */
 class subscriber_handler_creator
 {

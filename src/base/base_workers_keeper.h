@@ -4,8 +4,6 @@
 #include <functional>
 #include <atomic>
 #include <memory>
-#include <condition_variable>
-#include <queue>
 
 /**
  * @brief Задача, которая крутится внутри потока
@@ -33,10 +31,12 @@ struct worker_context
      * @brief Число блоков обработанных worker'ом
      */
     std::atomic<size_t> num_blocks;
+
     /**
      * @brief Число комманд, обработанных worker'ом
      */
     std::atomic<size_t> num_commands;
+
     /**
      * @brief Имя worker'а
      */
@@ -54,7 +54,17 @@ class base_workers_keeper
 public:
     virtual ~base_workers_keeper() = default;
 
+    /**
+     * @brief Получение количества потоков worker'ов
+     * @return Количество потоков worker'ов
+     */
     virtual size_t num_workers() const = 0;
+
+    /**
+     * @brief Получение контекста потока worker'а
+     * @arg worker_index - индекс потока worker'а
+     * @return Конекст потока worker'а
+     */
     virtual context_sptr get_worker_context(size_t worker_index) = 0;
 };
 
