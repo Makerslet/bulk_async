@@ -8,38 +8,29 @@
 TEST(FACTORY, OPEN_SCOPE_COMMAND)
 {
     std::string str = "{";
-    commands_factory factory;
-    auto cmd = factory.create_command(str);
+    auto cmd = commands_factory::create_user_command(1, str);
 
     ASSERT_EQ(cmd->type(), command_type::open_scope);
+    ASSERT_EQ(cmd->timestamp(), 1);
 }
 
 TEST(FACTORY, CLOSE_SCOPE_COMMAND)
 {
     std::string str = "}";
-    commands_factory factory;
-    auto cmd = factory.create_command(str);
+    auto cmd = commands_factory::create_user_command(1, str);
 
     ASSERT_EQ(cmd->type(), command_type::close_scope);
-}
-
-TEST(FACTORY, FINISH_COMMAND)
-{
-    std::string str = "exit";
-    commands_factory factory;
-    auto cmd = factory.create_command(str);
-
-    ASSERT_EQ(cmd->type(), command_type::finish);
+    ASSERT_EQ(cmd->timestamp(), 1);
 }
 
 TEST(FACTORY, TEXT_COMMAND)
 {
     std::string str = "abrakadabra";
-    commands_factory factory;
-    auto cmd = factory.create_command(str);
+    auto cmd = commands_factory::create_user_command(1, str);
 
     ASSERT_EQ(cmd->type(), command_type::text);
     ASSERT_EQ(dynamic_cast<text_command*>(cmd.get())->info(), str);
+    ASSERT_EQ(cmd->timestamp(), 1);
 }
 
 TEST(COMMAND_HANDLER, BASE_CHECK)
@@ -68,7 +59,7 @@ TEST(COMMAND_HANDLER, DATA_ENDED_IN_BASE_SCOPE)
     std::string command_text("hello_world");
     uint64_t timestamp = 123456;
     cmd_handler.add_command(std::make_unique<text_command>(timestamp, command_text));
-    cmd_handler.add_command(std::make_unique<finish_command>(11));
+    cmd_handler.stop_handling();
 
     std::vector<std::string> expected;
     expected.push_back(command_text);
@@ -153,7 +144,7 @@ TEST(COMMAND_HANDLER, FORCED_CLOSURE_NESTED_SCOPE)
     uint64_t timestamp = 123456;
     cmd_handler.add_command(std::make_unique<open_scope_command>(11));
     cmd_handler.add_command(std::make_unique<text_command>(timestamp, command_text));
-    cmd_handler.add_command(std::make_unique<finish_command>(12));
+    cmd_handler.stop_handling();
 
     std::vector<std::string> expected;
     ASSERT_TRUE(expected == subscriber->output());

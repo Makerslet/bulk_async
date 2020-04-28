@@ -1,6 +1,8 @@
 #include "command_handler.h"
 #include "commands.h"
 
+#include <iostream>
+
 command_handler::command_handler(std::size_t bulk_length) :
     _bulk_length(bulk_length), _current_scope_level(0)
 {
@@ -15,20 +17,25 @@ const command_handler_statistic& command_handler::statistic() const
 
 void command_handler::add_command(std::unique_ptr<base_command>&& command)
 {
-    switch (command->type()) {
-        case command_type::open_scope: {
-            handle_open_scope();
-            break;
+    try {
+        switch (command->type()) {
+            case command_type::open_scope: {
+                handle_open_scope();
+                break;
+            }
+            case command_type::close_scope: {
+                handle_close_scope();
+                break;
+            }
+            case command_type::text: {
+                handle_text_command(command->timestamp(),
+                                    (dynamic_cast<text_command*>(command.get()))->info());
+                break;
+            }
         }
-        case command_type::close_scope: {
-            handle_close_scope();
-            break;
-        }
-        case command_type::text: {
-            handle_text_command(command->timestamp(),
-                                (dynamic_cast<text_command*>(command.get()))->info());
-            break;
-        }
+    }
+    catch(const std::logic_error& ex) {
+        std::cout << ex.what() << std::endl;
     }
 }
 
